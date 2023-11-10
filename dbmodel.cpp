@@ -43,9 +43,9 @@ void DBModel::writeFile() { //функция записи json структур�
     QFile file(DBModel::kFileName);
     file.open(QIODevice::ReadWrite | QIODevice::Text);
 
-    auto encodedText = Crypt::encrypt((this->key + "\n" + strJson).toUtf8(), //шифрование strjson
+    auto encodedText = Crypt::encrypt((this->key + "\n" + strJson).toUtf8(),
                                       this->key, this->key);
-    file.write(encodedText); // записываем шифрованный текст в файл
+    file.write(encodedText);
 
     file.close();
     file.open(QIODevice::ReadOnly | QIODevice::Text);
@@ -59,8 +59,8 @@ void DBModel::writeRowToJSON(DBModel::Row row) { //при добавлении �
     obj[DBModel::fields.Data] = row.Data;
     obj[DBModel::fields.IDSSch] = row.IDSSch;
 
-    this->json.append(obj); // добавление записи в поле json (15 стр)
-    this->writeFile(); //запись в файл
+    this->json.append(obj);
+    this->writeFile();
 }
 
 void DBModel::deleteRowFromJSON(int index) {

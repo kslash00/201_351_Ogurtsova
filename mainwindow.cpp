@@ -29,35 +29,35 @@ void MainWindow::on_pushButton_clicked()
 {
     QString pinCode = ui->pin->text();
 
-    QFile file(DBModel::kFileName); //создается объект класса Qfile, в скобках передаем путь к файлу
+    QFile file(DBModel::kFileName);
 
     if (!file.exists()) {  //проверка существования файла (если сущ - возвращает true и выполняем код, иначе не выполняем
-        auto encodedPin = //зашифровывает пин код, результат записывается в encodedpin
+        auto encodedPin =
             Crypt::encrypt((pinCode + "\n[]").toUtf8(), pinCode, pinCode);
 
-        file.open(QIODevice::ReadWrite | QIODevice::Text); //открывается файл для чтения и записи
-        file.write(encodedPin); //записываем в файл зашифрованный пин код
+        file.open(QIODevice::ReadWrite | QIODevice::Text);
+        file.write(encodedPin);
         file.close();
 
         QMessageBox::warning(this, "Pin", "A new PIN code has been created");
         return MainWindow::on_pushButton_clicked();
     }
 
-    file.open(QIODevice::ReadWrite | QIODevice::Text); //снова открываем файл для чтения и записи
-    QByteArray readedText = file.readAll(); // в переменную readedText записывается все содержимое файла
+    file.open(QIODevice::ReadWrite | QIODevice::Text);
+    QByteArray readedText = file.readAll();
     file.close();
 
-    QString decodedText = Crypt::decrypt(readedText, pinCode, pinCode); //расшифровка текста
-    QString decodedKey = decodedText.split("\n")[0]; //запись ключа в decodedKey из первой строки json файла
+    QString decodedText = Crypt::decrypt(readedText, pinCode, pinCode);
+    QString decodedKey = decodedText.split("\n")[0];
 
     qInfo() << "Key" << decodedKey;
 
-    if (decodedKey == pinCode) { //проверка соответствия введенного пин кода и пин кода из файла
-        Schet NewWindow(pinCode); //если верно - открывается следующее окно acclist
+    if (decodedKey == pinCode) {
+        Schet NewWindow(pinCode);
         NewWindow.setModal(true);
         NewWindow.exec();
     } else {
-        QMessageBox::warning(this, "Authotization", "Invalid PIN code"); //если неверно - вывод соответствующего сообщения
+        QMessageBox::warning(this, "Authotization", "Invalid PIN code");
     }
 
     /*if (pinCode == "1234"){
