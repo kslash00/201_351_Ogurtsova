@@ -39,6 +39,7 @@ visib::~visib()
     item->setSizeHint(widget->sizeHint());
     ui->listWidget->addItem(item);
     ui->listWidget->setItemWidget(item, widget);
+sdgr
 }*/
 
 void visib::on_pushButton_clicked()
