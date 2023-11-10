@@ -9,19 +9,30 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addsch.cpp \
+    crypt.cpp \
+    dbmodel.cpp \
     main.cpp \
     mainwindow.cpp \
-    schet.cpp
+    schet.cpp \
+    visib.cpp
 
 HEADERS += \
+    addsch.h \
+    crypt.h \
+    dbmodel.h \
     mainwindow.h \
-    schet.h
+    schet.h \
+    visib.h
 
 FORMS += \
+    addsch.ui \
     mainwindow.ui \
-    schet.ui
+    schet.ui \
+    visib.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+include($$PWD/../Qt-Secret/src/Qt-Secret.pri)

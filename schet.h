@@ -14,6 +14,10 @@ class Schet : public QDialog
 public:
     explicit Schet(QString key, QWidget *parent = nullptr);
     ~Schet();
+    bool show = false;
+    QString key;
+
+
 
 private:
     Ui::Schet *ui;
